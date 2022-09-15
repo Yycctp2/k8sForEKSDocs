@@ -1,20 +1,6 @@
-# Welcome to MkDocs
+# Setting
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
-
-## Commands
-
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
-
-## Project layout
-
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+***
 
 ## Install kubectl
 
@@ -22,7 +8,13 @@ For full documentation visit [mkdocs.org](https://www.mkdocs.org).
     chmod +x ./kubectl
     mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$PATH:$HOME/bin
 
-# Installation
+## Install eksctl
 
+    curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+    sudo mv /tmp/eksctl /usr/local/bin  
 
-created by __sm__
+## Configuration eksctl
+first config aws credential. cluster ownerd credential  
+eksctl&kubectl connecting to EKS Cluster
+
+    aws eks update-kubeconfig --name $(eks-cluster-name) --region $(cluster-region)
