@@ -317,6 +317,10 @@ docs/
     ...       # Other markdown pages, images and other files.
 </code></pre>
 <h2 id="install-kubectl">Install kubectl</h2>
+<pre><code>curl -o kubectl https://s3.us-west-2.amazonaws.com/amazon-eks/1.23.7/2022-06-29/bin/linux/amd64/kubectl
+chmod +x ./kubectl
+mkdir -p $HOME/bin &amp;&amp; cp ./kubectl $HOME/bin/kubectl &amp;&amp; export PATH=$PATH:$HOME/bin
+</code></pre>
 <h1 id="installation">Installation</h1>
 <p>created by <strong>sm</strong></p>
 
