@@ -32,4 +32,3 @@ __```ingress.yaml```__
                     port:
                     number: $(Service_Port)
 
-l
