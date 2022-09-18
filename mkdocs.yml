@@ -1,3 +1,11 @@
 site_name: k8sForEKSDocsSM
 theme:
   name: material
+extra:
+  alternate:
+    - name: English
+      link: yycctp2.github.io/k8sForEKSDocs/
+      lang: en
+    - name: Korean
+      link: yycctp2.github.io/k8sForEKSDocs/kor/
+      lang: kr
