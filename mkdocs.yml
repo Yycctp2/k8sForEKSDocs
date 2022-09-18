@@ -4,8 +4,8 @@ theme:
 extra:
   alternate:
     - name: English
-      link: yycctp2.github.io/k8sForEKSDocs/
+      link: /
       lang: en
     - name: Korean
-      link: yycctp2.github.io/k8sForEKSDocs/kor/
+      link: /kor/
       lang: kr
