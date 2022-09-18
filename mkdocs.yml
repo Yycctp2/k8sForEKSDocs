@@ -4,8 +4,8 @@ theme:
 extra:
   alternate:
     - name: English
-      link: /
+      link: /k8sForEKSDocs/
       lang: en
     - name: Korean
-      link: /kor/
+      link: /k8sForEKSDocs/kor/
       lang: kr
