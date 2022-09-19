@@ -8,4 +8,8 @@ extra:
       lang: en
     - name: Korean
       link: /k8sForEKSDocs/kor/
-      lang: kr
+      lang: kr 
+      
+nav:
+  - home: '/docs/'
+  - 'kor': 'https://www.google.com'
