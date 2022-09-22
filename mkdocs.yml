@@ -1,15 +1,3 @@
 site_name: k8sForEKSDocsSM
 theme:
   name: material
-extra:
-  alternate:
-    - name: English
-      link: /k8sForEKSDocs/
-      lang: en
-    - name: Korean
-      link: /k8sForEKSDocs/kor/
-      lang: kr 
-      
-nav:
-  - home: '/docs/'
-  - 'kor': 'https://www.google.com'
