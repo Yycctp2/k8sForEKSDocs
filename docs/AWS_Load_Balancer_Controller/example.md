@@ -2,11 +2,12 @@
 
 * Application Load Balancer used Ingress
 
+``` deployment.yaml```
 ```
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-deployment
+  name: deployment
   labels:
     app: nginx
 spec:
@@ -27,6 +28,7 @@ spec:
 ```
 
 
+```Service.yaml```
 ```
 apiVersion: v1
 kind: Service
@@ -39,12 +41,13 @@ spec:
     app: nginx
   type: NodePort
   ports:
-    - port: 80  
-      targetPort: 80 
+    - port: 80 # Service의 Port
+      targetPort: 80 # 접근할 deployments의 port
       protocol: TCP
 ```
 
 
+```Ingress.yaml```
 ```
 apiVersion: networking.k8s.io/v1
 kind: Ingress

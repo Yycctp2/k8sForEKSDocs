@@ -383,6 +383,69 @@
 <h2 id="alb-controller-example-used-nginx">ALB Controller example used NginX</h2>
 <ul>
 <li>Application Load Balancer used Ingress</li>
+</ul>
+<p><code>deployment.yaml</code></p>
+<pre><code>apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+</code></pre>
+<p><code>Service.yaml</code></p>
+<pre><code>apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-application
+  annotations:
+    alb.ingress.kubernetes.io/healthcheck-path: &quot;/&quot;
+spec:
+  selector:
+    app: nginx
+  type: NodePort
+  ports:
+    - port: 80  
+      targetPort: 80 
+      protocol: TCP
+</code></pre>
+<p><code>Ingress.yaml</code></p>
+<pre><code>apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+    name: &quot;backend-ingress&quot;
+    namespace: default
+    annotations:
+      kubernetes.io/ingress.class: alb
+      alb.ingress.kubernetes.io/scheme: internet-facing
+      alb.ingress.kubernetes.io/target-type: ip
+spec:
+    rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: &quot;nginx-application&quot;
+                port:
+                  number: 80
+</code></pre>
+<ul>
 <li>Network load Balancer used Service</li>
 </ul>
 
