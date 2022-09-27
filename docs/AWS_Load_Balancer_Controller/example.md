@@ -41,8 +41,8 @@ spec:
     app: nginx
   type: NodePort
   ports:
-    - port: 80 # Service의 Port
-      targetPort: 80 # 접근할 deployments의 port
+    - port: 80 # Service.yaml Port
+      targetPort: 80 # deployments access port
       protocol: TCP
 ```
 
@@ -73,7 +73,7 @@ spec:
 
 ### Network load Balancer used Service
 
-``` deployment.yaml```
+``` deployment.yaml ```
 ```
 apiVersion: apps/v1
 kind: Deployment
@@ -113,10 +113,8 @@ spec:
     app: nginx
   type: NodePort
   ports:
-    - port: 80 # Service의 Port
-      targetPort: 80 # 접근할 deployments의 port
+    - port: 80 # Service.yaml Port
+      targetPort: 80 # deployments access port
       protocol: TCP
 ```
-
-
 
