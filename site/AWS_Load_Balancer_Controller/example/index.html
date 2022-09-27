@@ -62,7 +62,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#alb-controller-example-used-nginx" class="md-skip">
+        <a href="#alb-controller-example-used-nginx-image" class="md-skip">
           Skip to content
         </a>
       
@@ -311,9 +311,29 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#alb-controller-example-used-nginx" class="md-nav__link">
-    ALB Controller example used NginX
+  <a href="#alb-controller-example-used-nginx-image" class="md-nav__link">
+    ALB Controller example used NginX image
   </a>
+  
+    <nav class="md-nav" aria-label="ALB Controller example used NginX image">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#application-load-balancer-used-ingress" class="md-nav__link">
+    Application Load Balancer used Ingress
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#network-load-balancer-used-service" class="md-nav__link">
+    Network load Balancer used Service
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -357,9 +377,29 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#alb-controller-example-used-nginx" class="md-nav__link">
-    ALB Controller example used NginX
+  <a href="#alb-controller-example-used-nginx-image" class="md-nav__link">
+    ALB Controller example used NginX image
   </a>
+  
+    <nav class="md-nav" aria-label="ALB Controller example used NginX image">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#application-load-balancer-used-ingress" class="md-nav__link">
+    Application Load Balancer used Ingress
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#network-load-balancer-used-service" class="md-nav__link">
+    Network load Balancer used Service
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -380,15 +420,13 @@
 
   <h1>Example</h1>
 
-<h2 id="alb-controller-example-used-nginx">ALB Controller example used NginX</h2>
-<ul>
-<li>Application Load Balancer used Ingress</li>
-</ul>
+<h2 id="alb-controller-example-used-nginx-image">ALB Controller example used NginX image</h2>
+<h3 id="application-load-balancer-used-ingress">Application Load Balancer used Ingress</h3>
 <p><code>deployment.yaml</code></p>
 <pre><code>apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-deployment
+  name: deployment
   labels:
     app: nginx
 spec:
@@ -419,8 +457,8 @@ spec:
     app: nginx
   type: NodePort
   ports:
-    - port: 80  
-      targetPort: 80 
+    - port: 80 # Service의 Port
+      targetPort: 80 # 접근할 deployments의 port
       protocol: TCP
 </code></pre>
 <p><code>Ingress.yaml</code></p>
@@ -431,7 +469,7 @@ metadata:
     namespace: default
     annotations:
       kubernetes.io/ingress.class: alb
-      alb.ingress.kubernetes.io/scheme: internet-facing
+      alb.ingress.kubernetes.io/scheme: internet-facing  
       alb.ingress.kubernetes.io/target-type: ip
 spec:
     rules:
@@ -445,9 +483,48 @@ spec:
                 port:
                   number: 80
 </code></pre>
-<ul>
-<li>Network load Balancer used Service</li>
-</ul>
+<h3 id="network-load-balancer-used-service">Network load Balancer used Service</h3>
+<p><code>deployment.yaml</code></p>
+<pre><code>apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+</code></pre>
+<p><code>Service.yaml</code></p>
+<pre><code>apiVersion: v1
+kind: Service
+metadata:
+  name: Service
+  annotations:
+    alb.ingress.kubernetes.io/healthcheck-path: &quot;/&quot;
+    service.beta.kubernetes.io/aws-load-balancer-type: &quot;external&quot;
+    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: &quot;ip&quot;
+spec:
+  selector:
+    app: nginx
+  type: NodePort
+  ports:
+    - port: 80 # Service의 Port
+      targetPort: 80 # 접근할 deployments의 port
+      protocol: TCP
+</code></pre>
 
 
 
