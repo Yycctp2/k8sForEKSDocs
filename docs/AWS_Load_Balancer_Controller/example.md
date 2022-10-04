@@ -33,7 +33,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-application
+  name: Service
   annotations:
     alb.ingress.kubernetes.io/healthcheck-path: "/"
 spec:
@@ -66,10 +66,11 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: "nginx-application"
+                name: "Service"
                 port:
                   number: 80
 ```
+
 
 * Network load Balancer used Service
 
